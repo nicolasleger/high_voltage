@@ -2,20 +2,28 @@ module HighVoltage
   module Constraints
     # Routing constraint to validate request.path has a corresponding view
     class RootRoute
-      def self.matches?(request)
-        pattern = file_pattern(request.path)
+      def initialize
+        @lookup_context = ActionView::LookupContext.new(
+          Rails.configuration.paths["app/views"],
+        )
+      end
 
-        Dir.glob(pattern).any?
+      def matches?(request)
+        page_id = clean_page_path(request.path)
+        template = File.join(content_path, page_id)
+        lookup_context.exists? template
       end
 
       private
 
-      def self.file_pattern(page_id)
-        "#{content_path}#{page_id}.html*"
+      attr_reader :lookup_context
+
+      def clean_page_path(request_path)
+        request_path.sub(/\.html$/, "")
       end
 
-      def self.content_path
-        Rails.root.join('app', 'views', HighVoltage.content_path).to_s
+      def content_path
+        HighVoltage.content_path
       end
     end
   end

@@ -3,13 +3,15 @@ require "spec_helper"
 describe HighVoltage::PageCollector do
   it "produces an array of all page_ids under pages/" do
     expect(HighVoltage.page_ids).to eq [
+      "about",
       "also_dir/also_nested",
       "also_exists",
       "also_exists_but_references_nonexistent_partial",
+      "current_page_helper",
       "dir/nested",
       "exists",
       "exists_but_references_nonexistent_partial",
-      "rot13"
+      "rot13",
     ]
   end
 

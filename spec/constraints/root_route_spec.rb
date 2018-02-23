@@ -1,21 +1,29 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe HighVoltage::Constraints::RootRoute, '.matches?' do
-  it 'returns true when the view file exists' do
-    request = double(path: 'index')
-    allow(Dir).to receive(:glob).and_return(["about.html.erb"])
+describe HighVoltage::Constraints::RootRoute do
+  describe "#matches?" do
+    it "returns true when the view file exists" do
+      request = double(path: "exists")
 
-    result = HighVoltage::Constraints::RootRoute.matches?(request)
+      result = described_class.new.matches?(request)
 
-    expect(result).to be true
-  end
+      expect(result).to be true
+    end
 
-  it 'returns false when the view files does not exist' do
-    request = double(path: 'index')
-    allow(File).to receive(:glob).and_return([])
+    it "returns true when the view file exists and url ends with .html" do
+      request = double(path: "exists.html")
 
-    result = HighVoltage::Constraints::RootRoute.matches?(request)
+      result = described_class.new.matches?(request)
 
-    expect(result).to be false
+      expect(result).to be true
+    end
+
+    it "returns false when the view files does not exist" do
+      request = double(path: "index")
+
+      result = described_class.new.matches?(request)
+
+      expect(result).to be false
+    end
   end
 end

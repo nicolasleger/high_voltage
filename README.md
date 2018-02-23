@@ -1,4 +1,4 @@
-# High Voltage [![Build Status](https://travis-ci.org/thoughtbot/high_voltage.png)](http://travis-ci.org/thoughtbot/high_voltage)
+# High Voltage [![Build Status](https://travis-ci.org/thoughtbot/high_voltage.svg?branch=master)](https://travis-ci.org/thoughtbot/high_voltage)
 
 Rails engine for static pages.
 
@@ -10,17 +10,17 @@ Yeah, like "About us", "Directions", marketing pages, etc.
 
 ## Installation
 
+There are two ways to install High Voltage. 
+
+You can run: 
+
     $ gem install high_voltage
 
-Include in your Gemfile:
+Or you can include in your Gemfile:
 
 ```ruby
-gem 'high_voltage', '~> 2.4.0'
+gem 'high_voltage', '~> 3.0.0'
 ```
-
-For Rails versions prior to 3.0, use the 0.9.2 tag of high_voltage:
-
-    https://github.com/thoughtbot/high_voltage/tree/v0.9.2
 
 ## Usage
 
@@ -32,13 +32,13 @@ Write your static pages and put them in the RAILS_ROOT/app/views/pages directory
 After putting something interesting there, you can link to it from anywhere in your app with:
 
 ```ruby
-link_to 'About', page_path('about')
+<%= link_to 'About', page_path('about') %>
 ```
 
 You can nest pages in a directory structure, if that makes sense from a URL perspective for you:
 
 ```ruby
-link_to 'Q4 Reports', page_path('about/corporate/policies/HR/en_US/biz/sales/Quarter-Four')
+<%= link_to 'Q4 Reports', page_path('about/corporate/policies/HR/en_US/biz/sales/Quarter-Four') %>
 ```
 
 Bam.
@@ -143,7 +143,7 @@ meta-data on High Voltage pages.
 
 ```ruby
 # app/views/pages/about.html.erb
-<%= content_for :page_title, 'About Us - Custom page title' %>
+<% content_for :page_title, 'About Us - Custom page title' %>
 ```
 
 Then print the contents of `:title` into the layout:
@@ -168,7 +168,7 @@ end
 
 #### Caching
 
-Caching has been deprecated and will be removed in the next release.
+Built in caching support has been removed in HighVoltage. See [PR 221](https://github.com/thoughtbot/high_voltage/pull/221).
 
 Page caching and action caching can be done via Rails. Visit the [Caching with
 Rails: An overview](http://guides.rubyonrails.org/caching_with_rails.html) guide
@@ -320,7 +320,7 @@ Make sure that there are corresponding locale files
 /config/locale/hi.yml
 ```
 
-One last note is there is a [know
+One last note is there is a [known
 issue](https://github.com/thoughtbot/high_voltage/issues/59) with High Voltage.
 
 You'll need to specify routes like this `<%= link_to "About Us", page_path(id:
@@ -362,14 +362,14 @@ Thank you, [contributors]!
 
 ## License
 
-High Voltage is copyright © 2009-2015 thoughtbot. It is free software, and may
+High Voltage is copyright © 2009-2017 thoughtbot. It is free software, and may
 be redistributed under the terms specified in the [`LICENSE`] file.
 
 [`LICENSE`]: /MIT-LICENSE
 
 ## About thoughtbot
 
-![thoughtbot](https://thoughtbot.com/logo.png)
+![thoughtbot](http://presskit.thoughtbot.com/images/thoughtbot-logo-for-readmes.svg)
 
 High Voltage is maintained and funded by thoughtbot, inc.
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.

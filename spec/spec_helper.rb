@@ -4,12 +4,9 @@ require "pry"
 require "active_model/railtie"
 require "action_controller/railtie"
 require "action_view/railtie"
-require "actionpack/action_caching/railtie"
-require "actionpack/page_caching/railtie"
-require "rspec/rails"
-
 require "high_voltage"
 require "fake_app"
+require "rspec/rails"
 
 Rails.backtrace_cleaner.remove_silencers!
 
@@ -30,4 +27,13 @@ RSpec.configure do |config|
   config.include RSpec::Matchers
   config.mock_with :rspec
   config.order = "random"
+
+  if Rails::VERSION::MAJOR >= 5
+    require "rails-controller-testing"
+
+    config.include(
+      Rails::Controller::Testing::TemplateAssertions,
+      type: :controller,
+    )
+  end
 end
